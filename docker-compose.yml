@@ -1,0 +1,47 @@
+version: '3'
+services:
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    networks:
+      - network1
+  database:
+    image: bitnami/mariadb
+    networks:
+      - network1
+    environment:
+        - ALLOW_EMPTY_PASSWORD=yes
+        - MARIADB_ROOT_PASSWORD=root
+  http:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    tty: true  # Keeps the container from dying after launch
+    volumes:
+      - .:/app
+    depends_on:
+      - redis
+      - database
+    networks:
+      - network1
+    command: php -S 0.0.0.0:80
+    expose:
+      - "80"
+  worker:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    tty: true  # Keeps the container from dying after launch
+    restart: always
+    volumes:
+      - .:/app
+    depends_on:
+      - database
+      - redis
+    command: php worker.php
+    networks:
+      - network1
+networks:
+  network1:
+    driver: bridge

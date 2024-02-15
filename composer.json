@@ -1,0 +1,31 @@
+{
+  "name": "katsarov/mailerlite-test",
+  "type": "project",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Katsarov\\MailerliteTest\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Nikola Katsarov",
+      "email": "katsarov@gmail.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "require": {
+    "ext-redis": "*",
+    "ext-pdo": "*"
+  },
+  "require-dev": {
+    "phpstan/phpstan": "2.0.x-dev",
+    "phpunit/phpunit": "^11",
+    "squizlabs/php_codesniffer": "4.0.x-dev"
+  },
+  "scripts": {
+    "test": "./vendor/bin/phpunit tests",
+    "phpstan": "./vendor/bin/phpstan analyse -l 7 src tests",
+    "phpcs": "./vendor/bin/phpcs --standard=PSR2 src tests"
+  }
+}
