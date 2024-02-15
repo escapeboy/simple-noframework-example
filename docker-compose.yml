@@ -13,6 +13,8 @@ services:
     environment:
         - ALLOW_EMPTY_PASSWORD=yes
         - MARIADB_ROOT_PASSWORD=root
+    volumes:
+      - ./dump.sql:/docker-entrypoint-initdb.d/dump.sql
   http:
     build:
       context: ./
