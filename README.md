@@ -3,6 +3,12 @@
 docker-compose up
 ```
 
+You may run `composer install` or use
+```
+docker compose run http composer install 
+```
+Didn't manage to automate it
+
 ### Run
 ```
 open http://localhost
